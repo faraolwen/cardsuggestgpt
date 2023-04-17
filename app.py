@@ -16,16 +16,13 @@ def get_response():
 
     # OpenAI APIを使ってChatGPTに投げる
     prompt = f"{user_input}"
-    response = openai.Completion.create(
-        engine="text-davinci-002",
-        prompt=prompt,
-        max_tokens=150,
-        n=1,
-        stop=None,
-        temperature=0.5,
-    )
+    response = openai.ChatCompletion.create(
+                model="gpt-3.5-turbo",
+                messages=[
+                {'role': 'user', 'content': prompt}],
+                temperature=0.0)  
 
-    chatbot_response = response.choices[0].text.strip()
+    chatbot_response = response.choices[0].message.content.strip()
     return jsonify({'response': chatbot_response})
 
 if __name__ == '__main__':
