@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chatbot</title>
+    <title>CardsSuggestingGirl</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" type="text/css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
@@ -38,11 +38,12 @@
     </script>
 </head>
 <body>
-    <h1>Chat with ChatGPT</h1>
+    <img id="header-image" src="header.png" alt="Header Image">
+    <h1>探すカードの条件を入力してください。提案には少し時間がかかるのでゆるりとお待ちくださいね。</h1>
     <textarea id="user-input" rows="4" cols="50"></textarea><br>
     <button id="submit-btn">Send</button>
     <hr>
-    <h2>Images:</h2>
+    <h2>Cards:</h2>
     <div id="image-container"></div>
 </body>
 </html>

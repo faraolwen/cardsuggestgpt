@@ -63,3 +63,10 @@ hr {
     height: auto;
     aspect-ratio: 5 / 7;
 }
+
+#header-image {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+}
