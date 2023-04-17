@@ -2,20 +2,36 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Multi-line Input</title>
+    <title>Chatbot</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#submit-btn").click(function() {
+                const userInput = $("#user-input").val();
+                $.ajax({
+                    url: '/get_response',
+                    type: 'POST',
+                    data: {
+                        user_input: userInput
+                    },
+                    success: function(response) {
+                        $("#chatbot-response").text(response.response);
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+            });
+        });
+    </script>
 </head>
 <body>
-    <h1>Multi-line Input</h1>
-    <form method="POST" action="/">
-        <textarea name="input_text" rows="10" cols="30"></textarea>
-        <br>
-        <button type="submit">Submit</button>
-    </form>
-    {% if response %}
-        <h2>Response:</h2>
-        <pre>{{ response }}</pre>
-    {% endif %}
+    <h1>Chat with ChatGPT</h1>
+    <textarea id="user-input" rows="4" cols="50"></textarea><br>
+    <button id="submit-btn">Send</button>
+    <hr>
+    <h2>ChatGPT's response:</h2>
+    <div id="chatbot-response"></div>
 </body>
 </html>
