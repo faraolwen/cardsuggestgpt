@@ -1,18 +1,32 @@
-from flask import Flask, render_template, request
+import os
+import openai
+import requests
+from flask import Flask, render_template, request, jsonify
 
 app = Flask(__name__)
+openai.api_key = os.environ["OPENAI_API_KEY"]
 
-@app.route("/", methods=["GET", "POST"])
-def index():
-    response = ""
-    if request.method == "POST":
-        input_text = request.form["input_text"]
-        response = process_input(input_text)
-    return render_template("index.html", response=response)
+@app.route('/')
+def home():
+    return render_template('index.html')
 
-def process_input(input_text):
-    # ここで入力テキストを処理し、適切な返答を生成します。
-    return input_text.upper()
+@app.route('/get_response', methods=['POST'])
+def get_response():
+    user_input = request.form['user_input']
 
-if __name__ == "__main__":
+    # OpenAI APIを使ってChatGPTに投げる
+    prompt = f"{user_input}"
+    response = openai.Completion.create(
+        engine="text-davinci-002",
+        prompt=prompt,
+        max_tokens=150,
+        n=1,
+        stop=None,
+        temperature=0.5,
+    )
+
+    chatbot_response = response.choices[0].text.strip()
+    return jsonify({'response': chatbot_response})
+
+if __name__ == '__main__':
     app.run(debug=True)
