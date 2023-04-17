@@ -6,6 +6,16 @@
     <title>Chatbot</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
+        function showImages(imgUrls) {
+            let container = $('#image-container');
+            container.empty();
+
+            imgUrls.forEach(url => {
+                let img = $('<img>').attr('src', url).css('width', '33%');
+                container.append(img);
+            });
+        }
+
         $(document).ready(function() {
             $("#submit-btn").click(function() {
                 const userInput = $("#user-input").val();
@@ -16,7 +26,7 @@
                         user_input: userInput
                     },
                     success: function(response) {
-                        $("#chatbot-response").text(response.response);
+                        showImages(response.image_urls);
                     },
                     error: function(error) {
                         console.log(error);
@@ -31,7 +41,7 @@
     <textarea id="user-input" rows="4" cols="50"></textarea><br>
     <button id="submit-btn">Send</button>
     <hr>
-    <h2>ChatGPT's response:</h2>
-    <div id="chatbot-response"></div>
+    <h2>Images:</h2>
+    <div id="image-container"></div>
 </body>
 </html>
