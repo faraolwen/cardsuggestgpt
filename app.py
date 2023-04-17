@@ -4,6 +4,20 @@ import requests
 import json
 from flask import Flask, render_template, request, jsonify
 
+query ="""#command
+You are a competitive MTG player. Suggest 3 cards which satisfies as many the conditions as possible.
+
+#output
+only card names 
+no other description needed
+
+#output example
+1. Fires of Invention
+2. Black Lotus
+3. Murder
+
+#conditions"""
+
 app = Flask(__name__)
 openai.api_key = os.environ["OPENAI_API_KEY"]
 
@@ -41,6 +55,8 @@ def get_image_urls_from_keys(keys):
 @app.route('/get_response', methods=['POST'])
 def get_response():
     user_input = request.form['user_input']
+
+    user_input = query+ user_input
     
     # Call the ChatGPT API
     response = openai.ChatCompletion.create(
