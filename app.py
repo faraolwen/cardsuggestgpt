@@ -1,27 +1,18 @@
-import os
-import openai
-from flask import Flask
+from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
-openai.api_key = os.environ["OPENAI_API_KEY"]
+@app.route("/", methods=["GET", "POST"])
+def index():
+    response = ""
+    if request.method == "POST":
+        input_text = request.form["input_text"]
+        response = process_input(input_text)
+    return render_template("index.html", response=response)
 
-def chat_with_gpt(prompt):
-    response = openai.Completion.create(
-        engine="text-davinci-002",
-        prompt=prompt,
-        max_tokens=150,
-        n=1,
-        stop=None,
-        temperature=0.5,
-    )
+def process_input(input_text):
+    # ここで入力テキストを処理し、適切な返答を生成します。
+    return input_text.upper()
 
-    return response.choices[0].text.strip()
-
-@app.route('/')
-def hello():
-    response_text = chat_with_gpt("hello")
-    return response_text
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run(debug=True)
