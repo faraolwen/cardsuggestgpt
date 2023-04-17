@@ -38,6 +38,7 @@ def get_image_urls_from_keys(keys):
             res.append(image_urls[key])
     return res
 
+@app.route('/get_response', methods=['POST'])
 def get_response():
     user_input = request.form['user_input']
     
