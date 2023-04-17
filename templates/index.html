@@ -38,7 +38,9 @@
     </script>
 </head>
 <body>
-    <img id="header-image" src="{{ url_for('static', filename='images/header.png') }}" alt="Header Image">
+    <div id="header-container">
+        <img id="header-image" src="{{ url_for('static', filename='images/header.png') }}" alt="Header Image">
+    </div>
     <h2>探すカードの条件を入力してください。提案には少し時間がかかるのでゆるりとお待ちくださいね。</h2>
     <textarea id="user-input" rows="4" cols="50"></textarea><br>
     <button id="submit-btn">Send</button>

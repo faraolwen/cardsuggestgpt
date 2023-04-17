@@ -70,3 +70,9 @@ hr {
     aspect-ratio: 16 / 9;
     object-fit: cover;
 }
+
+#header-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
