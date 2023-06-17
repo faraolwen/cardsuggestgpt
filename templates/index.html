@@ -20,6 +20,8 @@
         $(document).ready(function() {
             $("#submit-btn").click(function() {
                 const userInput = $("#user-input").val();
+                let container = $('#image-container');
+                container.append("考え中…")
                 $.ajax({
                     url: '/get_response',
                     type: 'POST',
